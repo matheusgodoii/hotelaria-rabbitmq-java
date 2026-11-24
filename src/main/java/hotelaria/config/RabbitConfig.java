@@ -82,4 +82,18 @@ public class RabbitConfig {
                 .with("#");
     }
 
+
+    // FILA DE PREPARACAO DE CHEGADAS
+    @Bean
+    public Queue filaPreparacao() {
+        return new Queue("hotel.preparacao", true);
+    }
+
+    @Bean
+    public Binding preparacaoConfirmada() {
+        return BindingBuilder.bind(filaPreparacao())
+                .to(hotelExchange())
+                .with("hospedagem.confirmada");
+    }
+
 }
